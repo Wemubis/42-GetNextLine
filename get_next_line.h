@@ -6,7 +6,7 @@
 /*   By: mle-boud <mle-boud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:09:40 by mle-boud          #+#    #+#             */
-/*   Updated: 2022/11/22 15:21:52 by mle-boud         ###   ########.fr       */
+/*   Updated: 2022/11/22 15:30:59 by mle-boud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 /*------------PROTOS------------*/
 /*-----HEAD-----*/
 char		*get_next_line(int fd);
-static void	*ft_separate(char *string, char *stash, char *left_over);
 
 /*-----HELP-----*/
 size_t		ft_strlen(char *str);
