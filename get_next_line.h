@@ -6,7 +6,7 @@
 /*   By: mle-boud <mle-boud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:09:40 by mle-boud          #+#    #+#             */
-/*   Updated: 2022/11/22 15:30:59 by mle-boud         ###   ########.fr       */
+/*   Updated: 2022/11/22 15:40:57 by mle-boud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 /*------------INCLUD------------*/
 # include <stdlib.h>
+# include <unistd.h>
 
 /*------------PROTOS------------*/
 /*-----HEAD-----*/
@@ -22,11 +23,9 @@ char		*get_next_line(int fd);
 
 /*-----HELP-----*/
 size_t		ft_strlen(char *str);
-int			*ft_strchr(const char *s, int c);
-char		*ft_strjoin(const char *s1, const char *s2);
-char		*keep_left(const char *str);
-char		*keep_right(const char *str);
-
-/*------------STRUCT------------*/
+int			ft_strchr(char *s, int c);
+char		*ft_strjoin(char *s1, char *s2);
+char		*keep_left(char *str);
+char		*keep_right(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mle-boud <mle-boud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:09:31 by mle-boud          #+#    #+#             */
-/*   Updated: 2022/11/22 13:17:27 by mle-boud         ###   ########.fr       */
+/*   Updated: 2022/11/22 15:38:18 by mle-boud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ size_t	ft_strlen(char *str)
 }
 
 // check if "\n"
-int	*ft_strchr(const char *s, int c)
+int	ft_strchr(char *s, int c)
 {
 	int	i;
 
@@ -40,7 +40,7 @@ int	*ft_strchr(const char *s, int c)
 }
 
 // create pointer with all the buf value inside
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*dst;
 	int		i;
@@ -66,7 +66,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 
 // keep somewhere what's after the '\n'
 // Keep what's left
-char	*keep_left(const char *s)
+char	*keep_left(char *s)
 {
 	char	*dst;
 	int		i;
@@ -87,7 +87,7 @@ char	*keep_left(const char *s)
 }
 
 // Keep what's right
-char	*keep_right(const char *s)
+char	*keep_right(char *s)
 {
 	char	*dst;
 	int		i;
