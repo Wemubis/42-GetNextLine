@@ -95,9 +95,14 @@ char	*keep_left(char *s)
 	dst = malloc(sizeof(char) * (i + 1));
 	if (!dst)
 		return (0);
-	i = -1;
-	while (s[++i] != 10 && s[i])
+	i = 0;
+	while (s[i] != 10 && s[i])
+	{
 		dst[i] = s[i];
+		i++;
+	}
+	if (s[i] == 10)
+		dst[i] = s[i++];
 	dst[i] = 0;
 	return (dst);
 }

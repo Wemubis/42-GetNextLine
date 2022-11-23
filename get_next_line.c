@@ -11,34 +11,79 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 5
+#endif
+
 #include <stdio.h>
 #include <fcntl.h>
 
-char	*get_next_line(int fd)
+char	*keep_right(char *string)
 {
-	char		buff[BUFFER_SIZE + 1];
-	static char	*string;
-	char		*stash;
-	int			rt;
+	char	*dst;
+	int		i;
+	int		j;
 
-	string = NULL;
-	if (BUFFER_SIZE <= 0)
+	i = 0;
+	while (string[i] && string[i] != 10)
+		i++;
+	if (!string[i])
 		return (0);
-	rt = BUFFER_SIZE;
-	while (rt > 0)
+	dst = malloc(sizeof(char) * (ft_strlen(string) - i + 1));
+	if (!dst)
+		return (0);
+	j = 0;
+	while (string[i])
+		dst[j++] = string[i++];
+	dst[j] = 0;
+	return (dst);
+}
+
+char	*read_save_string(int fd, char *string)
+{
+	char	*buff;
+	char	*stash;
+	int		rt;
+
+	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buff)
+		return (0);
+	rt = 1;
+	while (rt > 0 && !ft_strchr(string, 10))
 	{
 		rt = read(fd, buff, BUFFER_SIZE);
 		if (rt == -1)
+		{
+			free(buff);
 			return (0);
+		}
 		buff[rt] = 0;
 		stash = string;
 		string = ft_strjoin(stash, buff);
 		stash = NULL;
-		if (ft_strchr(string, 10))
-			break ;
+	}
+	free(buff);
+	return (string);
+}
+
+char	*get_next_line(int fd)
+{
+
+	static char	*string;
+	char		*stash;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	stash = string;
+	string = read_save_string(fd, stash);
+	if (!string)
+	{
+		string = NULL;
+		return (0);
 	}
 	stash = keep_left(string);
-	string = ft_strchr(buff, 10);
+	string = keep_right(string);
 	return (stash);
 }
 
