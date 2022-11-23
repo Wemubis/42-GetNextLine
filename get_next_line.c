@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-char	*keep_right(char *string)
+static char	*keep_right(char *string)
 {
 	char	*dst;
 	int		i;
@@ -40,7 +40,7 @@ char	*keep_right(char *string)
 	return (dst);
 }
 
-char	*read_save_string(int fd, char *string)
+static char	*read_save_string(int fd, char *string)
 {
 	char	*buff;
 	char	*stash;
