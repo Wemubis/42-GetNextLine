@@ -6,33 +6,25 @@
 /*   By: mle-boud <mle-boud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:09:35 by mle-boud          #+#    #+#             */
-/*   Updated: 2022/11/22 15:40:34 by mle-boud         ###   ########.fr       */
+/*   Updated: 2022/11/23 17:14:05 by mle-boud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-int	ft_separate(char *string, char *stash, char *left_over)
-{
-	stash = string;
-	string = keep_left(stash);
-	left_over = keep_right(stash);
-	free(stash);
-	return (1);
-}
+#include <stdio.h>
+#include <fcntl.h>
 
 char	*get_next_line(int fd)
 {
-	static char	*left_over;
-	char		buff[BUFFER_SIZE +1];
-	char		*string;
+	char		buff[BUFFER_SIZE + 1];
+	static char	*string;
 	char		*stash;
 	int			rt;
 
 	string = NULL;
-	rt = BUFFER_SIZE;
-	if (fd < 0 || fd > 1023 || BUFFER_SIZE <= 0)
+	if (BUFFER_SIZE <= 0)
 		return (0);
+	rt = BUFFER_SIZE;
 	while (rt > 0)
 	{
 		rt = read(fd, buff, BUFFER_SIZE);
@@ -41,10 +33,31 @@ char	*get_next_line(int fd)
 		buff[rt] = 0;
 		stash = string;
 		string = ft_strjoin(stash, buff);
-		free(stash);
-		if (ft_strchr(string, '\n'))
+		stash = NULL;
+		if (ft_strchr(string, 10))
 			break ;
 	}
-	ft_separate(string, stash, left_over);
-	return (string);
+	stash = keep_left(string);
+	string = ft_strchr(buff, 10);
+	return (stash);
+}
+
+/*----------------------MAIN-----------------------*/
+
+int	main(void)
+{
+	int		fd;
+	char	*remit;
+
+	fd = open("cucu", O_RDONLY);
+	remit = get_next_line(fd);
+	printf("\npart 1 : %s", remit);
+	remit = get_next_line(fd);
+	printf("\npart 2 : %s", remit);
+	remit = get_next_line(fd);
+	printf("\npart 3 : %s", remit);
+	remit = get_next_line(fd);
+	printf("\npart 4 : %s", remit);
+	close(fd);
+	return (0);
 }
