@@ -46,10 +46,12 @@ char	*ft_strchr(char *s, int c)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	while (s[i])
 	{
 		if (s[i] == (char)c)
-			return (s + i);
+			return (&s[i]);
 		i++;
 	}
 	return (NULL);
@@ -61,16 +63,16 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*dst;
 	int		i;
 
-	i = -1;
 	if (!s1 && !s2)
-		return (0);
+		return (NULL);
 	if (!s1)
 		return (ft_strdup(s2));
 	if (!s2)
 		return (ft_strdup(s1));
 	dst = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!dst)
-		return (0);
+		return (NULL);
+	i = -1;
 	while (s1[++i])
 		dst[i] = s1[i];
 	i = -1;
@@ -89,12 +91,12 @@ char	*keep_left(char *s)
 
 	i = 0;
 	if (!s)
-		return (0);
+		return (NULL);
 	while (s[i] != 10 && s[i])
 		i++;
-	dst = malloc(sizeof(char) * (i + 1));
+	dst = malloc(sizeof(char) * (i + 2));
 	if (!dst)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (s[i] != 10 && s[i])
 	{
@@ -102,7 +104,10 @@ char	*keep_left(char *s)
 		i++;
 	}
 	if (s[i] == 10)
-		dst[i] = s[i++];
+	{
+		dst[i] = s[i];
+		i++;
+	}
 	dst[i] = 0;
 	return (dst);
 }
