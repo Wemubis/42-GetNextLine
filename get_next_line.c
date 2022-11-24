@@ -76,7 +76,7 @@ char	*get_next_line(int fd)
 	static char	*string;
 	char		*stash;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > 1023 || BUFFER_SIZE <= 0)
 		return (NULL);
 	string = read_save_string(fd, string);
 	if (!string)
