@@ -40,7 +40,7 @@ char	*ft_strdup(char *s)
 	return (dst);
 }
 
-// check if "\n" + Keep what's right
+// check if "\n"
 char	*ft_strchr(char *s, int c)
 {
 	int	i;

@@ -28,19 +28,18 @@ static char	*keep_right(char *string)
 	while (string[i] && string[i] != 10)
 		i++;
 	if (!string[i])
-	{
-		free(string);
-		return (NULL);
-	}
-	dst = malloc(sizeof(char) * (ft_strlen(string) - i + 1));
+		return (free(string), NULL);
+	dst = malloc(ft_strlen(string) - i + 1);
 	if (!dst)
-		return (NULL);
+		return (free(string), NULL);
 	j = 0;
 	i++;
 	while (string[i])
 		dst[j++] = string[i++];
 	dst[j] = 0;
-	return (dst);
+	if (!dst[0])
+		return (free(string), free(dst), NULL);
+	return (free(string), dst);
 }
 
 static char	*read_save_string(int fd, char *string)
@@ -84,5 +83,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	stash = keep_left(string);
 	string = keep_right(string);
+	if (!stash)
+		free(string);
 	return (stash);
 }
