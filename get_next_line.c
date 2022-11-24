@@ -29,7 +29,7 @@ static char	*keep_right(char *string)
 		i++;
 	if (!string[i])
 		return (free(string), NULL);
-	dst = malloc(ft_strlen(string) - i + 1);
+	dst = malloc(sizeof(char) * (ft_strlen(string) - i + 1));
 	if (!dst)
 		return (free(string), NULL);
 	j = 0;
@@ -57,15 +57,13 @@ static char	*read_save_string(int fd, char *string)
 	while (rt > 0 && !ft_strchr(string, 10))
 	{
 		rt = read(fd, buff, BUFFER_SIZE);
-		if (rt == -1)
+		if (rt == -1 || (rt == 0 && x == 0))
 			return (free(buff), NULL);
-		if (rt == 0 && x == 0)
-			return (free(buff), NULL);
+		x++;
 		buff[rt] = 0;
 		stash = string;
 		string = ft_strjoin(stash, buff);
 		free(stash);
-		x++;
 	}
 	free(buff);
 	return (string);
