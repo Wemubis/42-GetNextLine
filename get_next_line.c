@@ -42,41 +42,39 @@ static char	*keep_right(char *string)
 	return (free(string), dst);
 }
 
-static char	*read_save_string(int fd, char *string)
+static char	*read_save_string(int fd, char *string, int rt)
 {
 	char	*buff;
 	char	*stash;
-	int		rt;
-	int		x;
 
 	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
 		return (NULL);
-	rt = 1;
-	x = 0;
 	while (rt > 0 && !ft_strchr(string, 10))
 	{
 		rt = read(fd, buff, BUFFER_SIZE);
-		if (rt == -1 || (rt == 0 && x == 0))
-			return (free(buff), NULL);
-		x++;
+		if (rt == -1)
+			return (free(buff), free(string), NULL);
+		if (rt == 0)
+			break ;
 		buff[rt] = 0;
 		stash = string;
 		string = ft_strjoin(stash, buff);
 		free(stash);
 	}
-	free(buff);
-	return (string);
+	return (free(buff), string);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*string;
 	char		*stash;
+	int			rt;
 
-	if (fd < 0 || fd > 1023 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
-	string = read_save_string(fd, string);
+	rt = 1;
+	string = read_save_string(fd, string, rt);
 	if (!string)
 		return (NULL);
 	stash = keep_left(string);
