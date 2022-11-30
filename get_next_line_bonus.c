@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 5
@@ -67,19 +67,19 @@ static char	*read_save_string(int fd, char *string, int rt)
 
 char	*get_next_line(int fd)
 {
-	static char	*string;
+	static char	*string[OPEN_MAX];
 	char		*stash;
 	int			rt;
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	rt = 1;
-	string = read_save_string(fd, string, rt);
-	if (!string)
+	string[fd] = read_save_string(fd, string[fd], rt);
+	if (!string[fd])
 		return (NULL);
-	stash = keep_left(string);
+	stash = keep_left(string[fd]);
 	if (!stash)
-		return (free(string), string = NULL, NULL);
-	string = keep_right(string);
+		return (free(string[fd]), string[fd] = NULL, NULL);
+	string[fd] = keep_right(string[fd]);
 	return (stash);
 }
