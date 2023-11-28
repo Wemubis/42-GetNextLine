@@ -31,7 +31,7 @@ L'implémentation de get_next_line nécessite la gestion du buffer de lecture, l
 1. **Clonage du dépôt :**
 
     ```bash
-    git clone <lien_du_depot>
+    git clone https://github.com/Wemubis/get_next_line.git
     ```
 
 2. **Compilation :**
@@ -58,11 +58,4 @@ L'implémentation de get_next_line nécessite la gestion du buffer de lecture, l
         return 0;
     }
     ```
-
-<br>
-
-## Auteur
-
-Projet réalisé par [Votre Nom] à l'école 42.
-
-N'hésitez pas à inclure des détails spécifiques à votre implémentation, des choix de conception, des problèmes rencontrés et résolus, ainsi que toute autre information pertinente pour les évaluateurs.
+    
